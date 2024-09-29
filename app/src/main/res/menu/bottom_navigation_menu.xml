@@ -1,0 +1,23 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottomHome"
+        android:enabled="true"
+        android:icon="@drawable/ic_home_24"
+        android:title="Home"/>
+    <item
+        android:id="@+id/bottomVoucher"
+        android:enabled="true"
+        android:icon="@drawable/ic_voucher_24"
+        android:title="Voucher"/>
+    <item
+        android:id="@+id/bottomFavorite"
+        android:enabled="true"
+        android:icon="@drawable/ic_favorite_24"
+        android:title="Favorite"/>
+    <item
+        android:id="@+id/bottomProfile"
+        android:enabled="true"
+        android:icon="@drawable/ic_profile_24"
+        android:title="Profile"/>
+
+</menu>
