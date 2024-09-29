@@ -8,14 +8,14 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.shoeapp.models.User;
 
 public class UserDAO {
-    private final DbHelper shoeStoreDatabase;
+    private final DbHelper dbHelper;
 
     public UserDAO(Context context) {
-        shoeStoreDatabase = new DbHelper(context);
+        dbHelper = new DbHelper(context);
     }
 
     public String onRegister(String username, String password, String fullname) {
-        SQLiteDatabase sqLiteDatabase = shoeStoreDatabase.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
 
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USER WHERE USERNAME = ?", new String[]{username});
         if (cursor.getCount() > 0) {
@@ -28,7 +28,6 @@ public class UserDAO {
 
             long check = sqLiteDatabase.insert("USER", null, contentValues);
             cursor.close();
-
             if (check != -1) {
                 return "Register successfully";
             } else {
@@ -38,17 +37,16 @@ public class UserDAO {
     }
 
     public boolean onLogin(String username, String password) {
-        SQLiteDatabase sqLiteDatabase = shoeStoreDatabase.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("Select * from CUSTOMER where USERNAME = ? AND PASSWORD = ?", new String[]{username, password});
-        cursor.close();
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USER WHERE USERNAME = ? AND PASSWORD = ?", new String[]{username, password});
         return cursor.getCount() > 0;
     }
 
 
-    public User getCustomer(String username) {
+    public User getUser(String username) {
         User customer = null;
-        SQLiteDatabase sqLiteDatabase = shoeStoreDatabase.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery("Select * from CUSTOMER where USERNAME = ?", new String[]{username});
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM USER where USERNAME = ?", new String[]{username});
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             customer = new User(
@@ -56,7 +54,6 @@ public class UserDAO {
                     cursor.getString(1), // username
                     cursor.getString(2) // password
             );
-            cursor.close();
         }
 
         return customer;

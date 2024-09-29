@@ -10,16 +10,16 @@ import com.example.shoeapp.models.Product;
 import java.util.ArrayList;
 
 public class ProductDAO {
-    private final DbHelper shoeStoreDatabase;
+    private final DbHelper dbHelper;
 
 
     public ProductDAO(Context context) {
-        shoeStoreDatabase = new DbHelper(context);
+        dbHelper = new DbHelper(context);
     }
 
     public ArrayList<Product> getProducts() {
         ArrayList<Product> products = new ArrayList<>();
-        SQLiteDatabase sqLiteDatabase = shoeStoreDatabase.getReadableDatabase();
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM PRODUCT", null);
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
@@ -34,12 +34,12 @@ public class ProductDAO {
                 ));
             } while (cursor.moveToNext());
         }
-        cursor.close();
+
         return products;
     }
 
     public boolean createProduct(String name, String description, double price, String image, double ratings) {
-        SQLiteDatabase sqLiteDatabase = shoeStoreDatabase.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("NAME", name);
@@ -53,7 +53,7 @@ public class ProductDAO {
     }
 
     public boolean updateProduct(int productId, String name, String description, double price, String image) {
-        SQLiteDatabase sqLiteDatabase = shoeStoreDatabase.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
 
         contentValues.put("NAME", name);

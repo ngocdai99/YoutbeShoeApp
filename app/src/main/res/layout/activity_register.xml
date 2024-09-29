@@ -80,9 +80,6 @@
             android:textSize="14sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-<!--
-https://github.com/ngocdai99/YoutbeShoeApp.git
--->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -107,6 +104,7 @@ https://github.com/ngocdai99/YoutbeShoeApp.git
     </LinearLayout>
 
     <Button
+        android:id="@+id/btnRegister"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="50dp"

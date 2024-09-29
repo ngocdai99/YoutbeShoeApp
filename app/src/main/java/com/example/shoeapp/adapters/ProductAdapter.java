@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.shoeapp.ProductDetailActivity;
 import com.example.shoeapp.R;
 import com.example.shoeapp.models.Product;
@@ -48,20 +49,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Product product = list.get(position);
-        if (position % 2 == 0){
-            holder.imageView.setImageResource(R.mipmap.product2);
-        }else {
-            holder.imageView.setImageResource(R.mipmap.product1);
-        }
 
-//        Glide.with(context)
-//                .load(product.getImageUrl())
-//                .placeholder(R.mipmap.product1)
-//                .into(holder.imageView);
+
+        Glide.with(context)
+                .load(product.getImage())
+                .into(holder.imageView);
         holder.txtProductName.setText(product.getName());
         holder.txtPrice.setText("$" + product.getPrice());
         holder.txtRatings.setText(String.valueOf(product.getRatings()));
